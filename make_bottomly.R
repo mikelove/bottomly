@@ -1,0 +1,8 @@
+library(SummarizedExperiment)
+load("coldata.rda")
+load("rowranges.rda")
+load("counts.rda")
+bottomly <- SummarizedExperiment(list(counts=counts), colData=coldata, rowRanges=rowranges)
+levels(bottomly$strain) <- sub("/",".",levels(bottomly$strain))
+bottomly$batch <- factor(paste0("b",bottomly$experiment.number))
+save(bottomly, file="bottomly.rda")
